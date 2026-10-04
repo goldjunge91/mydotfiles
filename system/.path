@@ -4,7 +4,7 @@
 is-executable getconf && PATH=$($(command -v getconf) PATH)
 
 prepend-path() {
-  [ -d $1 ] && PATH="$1:$PATH"
+  [ -d "$1" ] && PATH="$1:$PATH"
 }
 
 # Prepend new items to path (if directory exists)
@@ -16,7 +16,17 @@ prepend-path "/usr/sbin"
 prepend-path "/usr/local/bin"
 prepend-path "$DOTFILES_DIR/bin"
 
+# macOS: sets HOMEBREW_PREFIX
 is-macos && . "$DOTFILES_DIR/system/macos/.path"
+
+# Shared paths for bash, fish and zsh (single source of truth)
+if [ -f "$DOTFILES_DIR/system/paths" ]; then
+  while IFS= read -r path_entry; do
+    case "$path_entry" in ''|\#*) continue ;; esac
+    eval "path_expanded=\"$path_entry\""
+    prepend-path "$path_expanded"
+  done < "$DOTFILES_DIR/system/paths"
+fi
 
 # Remove duplicates
 PATH=$(echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
