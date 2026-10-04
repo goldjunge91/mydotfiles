@@ -14,7 +14,13 @@ end
 # Homebrew optimizations
 set -gx HOMEBREW_NO_ANALYTICS 1
 set -gx HOMEBREW_NO_AUTO_UPDATE 1
-set -gx HOMEBREW_BUNDLE_FILE_GLOBAL "$HOME/.config/brewfile/Brewfile"
+
+# The Brewfile lives in the repo's install/ dir, not in a stowed ~/.config
+# path, so a bare `brew bundle` would otherwise use Homebrew's empty default.
+set -l dotfiles_dir (realpath $__fish_config_dir/../..)
+if test -f "$dotfiles_dir/install/Brewfile"
+    set -gx HOMEBREW_BUNDLE_FILE_GLOBAL "$dotfiles_dir/install/Brewfile"
+end
 
 # Add Homebrew paths to MANPATH and INFOPATH if they exist
 if test -d $HOMEBREW_PREFIX/share/man

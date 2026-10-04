@@ -41,6 +41,8 @@ brew "ripgrep"
 
 # languages/tools
 brew "cmake"
+brew "cocoapods"
+brew "fastlane"
 brew "gh"
 brew "make"
 brew "n"

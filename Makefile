@@ -110,7 +110,7 @@ duti:
 	duti -v $(DOTFILES_DIR)/install/duti
 
 bun:
-	curl -fsSL https://bun.sh/install | bash
+	is-executable bun || curl -fsSL https://bun.sh/install | bash
 
 fish: brew
 	is-executable fish || brew install fish
