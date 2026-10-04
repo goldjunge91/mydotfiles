@@ -62,3 +62,4 @@ brew "mole"
 
 brew "fish"
 brew "starship"
+brew "fnm"
