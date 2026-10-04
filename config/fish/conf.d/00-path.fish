@@ -15,6 +15,7 @@ set -l user_paths \
     $HOME/.local/bin \
     $HOME/bin \
     $HOME/.cargo/bin \
+    $HOME/.bun/bin \
     $HOME/.maestro/bin \
     $HOME/Library/pnpm \
     $HOME/.wasmtime/bin \

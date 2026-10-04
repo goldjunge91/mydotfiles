@@ -2,3 +2,4 @@
 *.lock.json
 __pycache__
 local
+fish_variables
