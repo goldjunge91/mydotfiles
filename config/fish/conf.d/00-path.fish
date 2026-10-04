@@ -1,8 +1,7 @@
 # 00-path.fish - Core PATH & Environment configuration
-# Use -g -p (global session prepend) to avoid universal variable pollution
+# Reads the shared path list from system/paths (used by bash, fish and zsh).
 
-# Determine the Homebrew prefix once: /opt/homebrew on Apple Silicon,
-# /usr/local on Intel. Must be set before the gnubin paths below.
+# Determine the Homebrew prefix once.
 if not set -q HOMEBREW_PREFIX
     set -l brew_bin (command -v brew)
     if test -n "$brew_bin"
@@ -14,36 +13,19 @@ if not set -q HOMEBREW_PREFIX
     end
 end
 
-# Core developer paths (prepended in order of priority)
-set -l user_paths \
-    $HOME/.local/bin \
-    $HOME/bin \
-    $HOME/.cargo/bin \
-    $HOME/.bun/bin \
-    $HOME/.maestro/bin \
-    $HOME/Library/pnpm \
-    $HOME/.wasmtime/bin \
-    $HOME/.local/share/fnm/aliases/default/bin \
-    /Applications/ArmGNUToolchain/14.3.rel1/arm-none-eabi/bin \
-    $HOME/.codeium/windsurf/bin \
-    $HOME/.antigravity/antigravity/bin \
-    $HOME/.antigravity-ide/antigravity-ide/bin
+# Node version manager prefix (matches system/.n)
+set -q N_PREFIX; or set -gx N_PREFIX "$HOME/.n"
 
-# GNU coreutils install into gnubin only. Without these, sed/awk/tar/grep/find/
-# patch silently resolve to the BSD versions on macOS.
-set -l gnu_paths \
-    $HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin \
-    $HOMEBREW_PREFIX/opt/findutils/libexec/gnubin \
-    $HOMEBREW_PREFIX/opt/gawk/libexec/gnubin \
-    $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin \
-    $HOMEBREW_PREFIX/opt/gnu-tar/libexec/gnubin \
-    $HOMEBREW_PREFIX/opt/gpatch/libexec/gnubin \
-    $HOMEBREW_PREFIX/opt/grep/libexec/gnubin \
-    $HOMEBREW_PREFIX/opt/make/libexec/gnubin
+# Locate the dotfiles dir via the (symlinked) fish config dir.
+set -l dotfiles_dir (realpath $__fish_config_dir/../..)
+set -l paths_file $dotfiles_dir/system/paths
 
-for p in $user_paths $gnu_paths
-    if test -d $p
-        fish_add_path -g -p $p
+if test -f $paths_file
+    for path_entry in (string match -rv '^\s*(#|$)' < $paths_file)
+        eval "set -l p $path_entry"
+        if test -d $p
+            fish_add_path -g -p $p
+        end
     end
 end
 
