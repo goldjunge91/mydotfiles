@@ -1,0 +1,60 @@
+# core/dotfiles
+brew "bats-core"
+brew "coreutils"
+brew "duti"
+brew "dockutil"
+brew "nano"
+brew "parallel"
+brew "stow"
+brew "thefuck"
+brew "tmux"
+brew "topgrade"
+brew "util-linux"
+brew "watch"
+
+# fs/network
+brew "bat"
+brew "croc"
+brew "curl"
+brew "eza"
+brew "httpie"
+brew "ssh-copy-id"
+brew "tree"
+brew "unar"
+brew "wget"
+brew "zoxide"
+
+# search/grep/diff
+brew "diffutils"
+brew "fd"
+brew "findutils"
+brew "fzf"
+brew "gawk"
+brew "git-delta"
+brew "gnu-sed"
+brew "gnu-tar"
+brew "gpatch"
+brew "grep"
+brew "jq"
+brew "psgrep"
+brew "ripgrep"
+
+# languages/tools
+brew "cmake"
+brew "gh"
+brew "make"
+brew "n"
+brew "python"
+brew "ruby"
+brew "shellcheck"
+
+# media
+brew "ffmpeg"
+brew "imagemagick"
+brew "optipng"
+brew "uni"
+brew "webp"
+
+# misc
+brew "grip"
+brew "mole"
