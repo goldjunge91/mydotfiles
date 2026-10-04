@@ -14,7 +14,7 @@ export ACCEPT_EULA=Y
 
 all: $(OS)
 
-macos: sudo core-macos packages-macos link duti bun
+macos: sudo core-macos packages-macos link duti bun fish
 
 ubuntu: core-ubuntu link
 
@@ -111,6 +111,13 @@ duti:
 
 bun:
 	curl -fsSL https://bun.sh/install | bash
+
+fish: brew
+	is-executable fish || brew install fish
+	if ! grep -q fish $(SHELLS); then \
+		echo $(HOMEBREW_PREFIX)/bin/fish | sudo tee -a $(SHELLS); \
+	fi
+	chsh -s $(HOMEBREW_PREFIX)/bin/fish
 
 test:
 	bats test

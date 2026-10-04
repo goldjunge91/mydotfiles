@@ -1,0 +1,245 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+scan_timeout = 30
+add_newline = true
+
+format = """
+[░▒▓](#a3aed2)\
+$hostname\
+$os\
+[](bg:#769ff0 fg:#a3aed2)\
+$directory\
+[](fg:#769ff0 bg:#394260)[$git_branch$git_status](bg:#394260)\
+[](fg:#394260 bg:#212736)[$python$rust$golang](bg:#212736)\
+[](fg:#212736)\
+$fill\
+[](fg:#212736)\
+[](fg:#212736 bg:#212736)\
+[$status](bg:#394260 fg:#394260)\
+[](bg:#394260 fg:#769ff0)\
+[$battery](fg:#769ff0 bg:#769ff0)\
+[](bg:#769ff0 fg:#a3aed2)\
+[](bg:#a3aed2 fg:#a3aed2)$time\
+[▓▒░](#a3aed2)\
+$line_break """
+
+# format = """
+# [░▒▓](#a3aed2)\
+# $hostname\
+# $os\
+# [](bg:#769ff0 fg:#a3aed2)\
+# $directory\
+# [](fg:#769ff0 bg:#394260)[$git_branch$git_status](bg:#394260)\
+# [](fg:#394260 bg:#212736)[$python$rust$golang](bg:#212736)\
+# [](fg:#212736)\
+# $line_break\
+# $character\
+# """
+# right_format = """
+# [](fg:#212736)\
+# [](fg:#212736 bg:#212736)\
+# [$status](bg:#394260 fg:#394260)\
+# [](bg:#394260 fg:#769ff0)\
+# [$battery](fg:#769ff0 bg:#769ff0)\
+# [](bg:#769ff0 fg:#a3aed2)\
+# [](bg:#a3aed2 fg:#a3aed2)$time\
+# [▓▒░](#a3aed2)
+# """
+# continuation_prompt = "[▸▹ ](dimmed white)"
+# continuation_prompt = "[▸ ▹ ](blink dimmed white)"
+continuation_prompt = "[TEST](bold red)"
+# bg:#212736 dunkelblau
+#  bg / fg :#394260 mittleres blau
+# fg:#769ff0 hellblau
+#  #a3aed2 grau
+##########################################################################
+
+[fill]
+symbol = ' '
+
+[os]
+disabled = false
+style = "bg:#a3aed2 fg:black"
+format = "[$symbol]($style)"
+
+[os.symbols]
+Windows = ""
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+# multiline = true
+[character]
+disabled = false
+success_symbol = '[](bold fg:color_green)'
+error_symbol = '[](bold fg:color_red)'
+vimcmd_symbol = '[](bold fg:color_green)'
+vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
+vimcmd_replace_symbol = '[](bold fg:color_purple)'
+vimcmd_visual_symbol = '[](bold fg:color_yellow)'
+
+[memory_usage]
+symbol = "▪▫▪ "
+format = " mem [${ram}( ${swap})]($style)"
+
+# [nim]
+# symbol = "▴▲▴ "
+# format = " nim [$symbol($version )]($style)"
+
+[spack]
+symbol = "◇ "
+format = " spack [$symbol$environment]($style)"
+
+[directory]
+style = "fg:#e3e5e5 bg:#769ff0"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "./"
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[git_branch]
+format = '[[$symbol $branch(:$remote_branch) ](fg:#769ff0 bg:#394260)]($style)'
+symbol = "[  ](bold italic bright-blue bg:#394260)"
+style = "italic bright-blue fg:#e3e5e5 bg:#394260"
+truncation_symbol = "."
+truncation_length = 10
+only_attached = true
+
+[git_status]
+style = "bold italic bg:#394260"
+format = "([$git_state⎪$ahead_behind$staged$modified$untracked$renamed$deleted$conflicted$stashed]($style bg:#394260))"
+conflicted = "[[💥${count}│](fg:red bg:#394260)]()"
+untracked = "[[📄${count}│](fg:#f50000 bg:#394260)]()"
+stashed = "[[📦${count}│](fg:#a1d40b bg:#394260)]()"
+modified = "[[📝${count}│](fg:#0ba8d4 bg:#394260)]()"
+staged = "[[📋${count}│](fg:#00ff62 bg:#394260)]()"
+renamed = "[[🔄${count}│](fg:#00ff62 bg:#394260)]()"
+deleted = "[[🗑️${count}│](fg:#ff2200 bg:#394260)]()"
+ahead = "[⏫│[${count}](bold white bg:#394260)│](italic green bg:#394260)($style)"
+behind = "[⏬│[${count}](bold white bg:#394260)│](italic red bg:#394260)"
+diverged = "[↕️ ⏫┤[${ahead_count}](regular white bg:#394260)│⏬┤[${behind_count}](regular white bg:#394260)│](italic bright-magenta bg:#394260)"
+
+[git_metrics]
+added_style = "fg:green bg:#394260"
+deleted_style = "fg:red bg:#394260"
+ignore_submodules = true
+format = '([+$added]($added_style) [-$deleted]($deleted_style) )'
+# ahead = "[[⏫${count}](fg:green bg:#394260)]($style bg:#394260)"
+# behind = "[[⏬${count}](fg:red bg:#394260)]($style bg:#394260)"
+# diverged = "[[↕️⏫${ahead_count}⏬${behind_count}](fg:yellow bg:#394260)]($style bg:#394260)"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total bg:#394260)]($style)\) '
+style = "bright-black bg:#394260"
+
+[nodejs]
+style = "fg:#769ff0 bg:#212736"
+symbol = ""
+format = "[$symbol][node](italic) [◫ ($version)](bold bright-green)"
+version_format = "${raw}"
+detect_files = ["package-lock.json", "yarn.lock"]
+detect_folders = ["node_modules"]
+detect_extensions = []
+
+[rust]
+symbol = ""
+style = "bg:#212736"
+format = '[[$symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:#212736"
+format = '[[$symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[time]
+disabled = false
+# Hour:Minute Format
+time_format = "%R"
+style = "fg:#1d2230 bg:#a0a9cb"
+format = '[$time L♥ M]($style)'
+
+[cmd_duration]
+min_time = 100
+style = "fg:yellow bg:#1d2230"
+format = '[[ ⏱ $duration ](fg:#a0a9cb bg:#1d2230)]($style)'
+show_milliseconds = true
+
+# Batteriestatus hinzufügen - mit größeren Icons
+[battery]
+format = "[ $percentage $symbol]($style)"
+full_symbol = "🔋 "
+charging_symbol = "⚡ "
+discharging_symbol = "💦"
+empty_symbol = "🪫"
+unknown_symbol = "❓ "
+disabled = false
+[[battery.display]]
+threshold = 15
+style = "bold fg:bright-red bg:#769ff0"
+[[battery.display]]
+threshold = 30
+style = "bold red bg:#769ff0"
+[[battery.display]]
+threshold = 50
+style = 'bold fg:bright-black bg:#769ff0'
+[[battery.display]]
+threshold = 80
+style = "bold fg:bright-black bg:#2F3F60"
+
+# Status des letzten Befehls hinzufügen
+[status]
+style = 'bold red bg:#394260'
+format = "[$symbol $status](bg:#394260 $style)"
+symbol = ' ❌'
+success_symbol = '✅'
+not_executable_symbol = '🚫 '
+not_found_symbol = '🔍'
+sigint_symbol = '🧱'
+signal_symbol = '⚡'
+map_symbol = true
+disabled = false
+
+# Netter Indikator für den Host
+[hostname]
+ssh_only = false
+ssh_symbol = "🌐 "
+format = "[[${ssh_symbol}](bold blue fg:#e3e5e5 bg:#a3aed2)[${hostname} ](blink bold fg:#e3e5e5 bg:#a3aed2)](fg:#e3e5e5 bg:#a3aed2)"
+aliases = { "MacBookAir" = "💻" }
+
+
+[python]
+symbol = "🐍 "
+style = "fg:#a0a9cb bg:#1d2230"
+# format = "[$symbol$pyenv_prefix($version) ($virtualenv)]($style)"
+# format = "[$symbol$pyenv_prefix ($version)]($style)"
+format = "[$symbol$pyenv_prefix ($virtualenv)]($style)"
+version_format = "v${raw}"
+pyenv_prefix = "via ${prefix} "
+
+
+# Verbesserte Darstellung von Docker
+[docker_context]
+symbol = "🐳 "
+style = "blue bold"
+format = "via [$symbol$context]($style) "
+# disabled = false
+# only_with_file = "true"
