@@ -14,7 +14,8 @@ export ACCEPT_EULA=Y
 
 all: $(OS)
 
-macos: sudo core-macos packages-macos link duti bun
+macos: sudo core-macos packages-macos link
+# macos: sudo core-macos packages-macos link duti bun
 
 ubuntu: core-ubuntu link
 
@@ -109,8 +110,8 @@ vscode-extensions: cask-apps
 duti:
 	duti -v $(DOTFILES_DIR)/install/duti
 
-bun:
-  curl -fsSL https://bun.sh/install | bash
+# bun:
+# 	curl -fsSL https://bun.sh/install | bash
 
 test:
 	bats test

@@ -58,3 +58,7 @@ brew "webp"
 # misc
 brew "grip"
 brew "mole"
+
+
+brew "fish"
+brew "oven-sh/bun/bun"

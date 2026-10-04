@@ -9,3 +9,5 @@ cask "ngrok"
 # cask "fork"
 # cask "visual-studio-code"
 # cask "vlc"
+
+cask "iterm2"
