@@ -4,9 +4,13 @@
 # Determine the Homebrew prefix once: /opt/homebrew on Apple Silicon,
 # /usr/local on Intel. Must be set before the gnubin paths below.
 if not set -q HOMEBREW_PREFIX
-    set -gx HOMEBREW_PREFIX (brew --prefix 2>/dev/null)
-    if test -z "$HOMEBREW_PREFIX"
+    set -l brew_bin (command -v brew)
+    if test -n "$brew_bin"
+        set -gx HOMEBREW_PREFIX (dirname (dirname $brew_bin))
+    else if test -x /opt/homebrew/bin/brew
         set -gx HOMEBREW_PREFIX /opt/homebrew
+    else
+        set -gx HOMEBREW_PREFIX /usr/local
     end
 end
 
