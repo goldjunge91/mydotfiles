@@ -61,4 +61,3 @@ brew "mole"
 
 
 brew "fish"
-brew "oven-sh/bun/bun"
